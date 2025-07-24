@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ShadowTalk</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="terminal">
+    <div class="terminal-header">
+      <h1>ShadowTalk</h1>
+    </div>
+
+    <div id="chat-log" class="terminal-log"></div>
+
+    <form id="login-form" autocomplete="off">
+      <input id="username" type="text" placeholder="Username" required />
+      <input id="password" type="password" placeholder="Password" required />
+      <button id="login-btn" type="submit">Login</button>
+      <button id="register-btn" type="button">Register</button>
+      <label style="display:block;margin:10px 0;">
+        <input type="checkbox" id="incognito-checkbox">
+        Use a random anonymous name for this session
+      </label>
+      <button id="logout-btn" style="display:none;margin-top:10px;">Logout</button>
+      <button id="delete-account-btn" style="display:none;margin-top:8px;">Delete Account</button>
+      <button id="forget-me-btn" style="display:none;margin-top:8px;">Forget Me (Remove Key)</button>
+      <button id="pair-device-btn" style="display:none;margin-top:10px;">Pair New Device</button>
+      <button id="scan-pair-btn" type="button">Scan Pairing QR</button>
+      <div id="pair-qr-section" style="margin:12px 0;"></div>
+      <input id="pair-qr-input" type="text" style="display:none;" placeholder="Paste QR contents here if not using camera">
+      <button id="backup-btn" style="margin-top:12px;" type="button">Backup</button>
+      <button id="export-key-btn" style="display:none;margin-top:12px;" type="button">Export Key</button>
+      <button id="restore-btn" style="margin-top:12px;" type="button">Restore Key</button>
+      <input id="restore-key-input" type="file" accept=".shadowtalk" style="display:none;">
+      <button id="rotate-group-key-btn" style="display:none;margin-top:10px;" type="button">Rotate Group Key</button>
+    </form>
+
+    <form id="message-form" autocomplete="off" style="display:none;">
+      <input id="recipient" type="text" placeholder="Recipient Username" required />
+      <input id="message" type="text" placeholder="Type your message..." required />
+      <input id="file-input" type="file" accept="image/*,audio/*" />
+      <label><input type="checkbox" id="burn-after-read"> Burn after read</label>
+      <input type="number" id="expiry-seconds" placeholder="Expire after (seconds)" min="1" style="width:150px;">
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <div id="my-fingerprint-section" style="margin:12px 0;">
+    <div id="my-fingerprint-code" style="font-size:1em; color:#0af; margin-bottom:7px;"></div>
+    <div id="my-qr" style="margin-top:7px;"></div>
+  </div>
+
+  <form id="create-group-form" style="display:none;">
+    <input id="group-name" type="text" placeholder="Group name" required>
+    <input id="group-members" type="text" placeholder="Comma-separated usernames" required>
+    <button type="submit">Create Group</button>
+  </form>
+  <div id="groups-list"></div>
+
+  <div id="group-chat-section" style="display:none;">
+    <select id="group-select"></select>
+    <div id="group-chat-log"></div>
+    <form id="group-message-form">
+      <input id="group-message" type="text" placeholder="Type a group message...">
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <button id="about-btn" style="margin-top:14px;">About & Privacy</button>
+  <div id="about-modal" style="display:none;position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:200;background:#000c;color:#8ef;align-items:center;justify-content:center;font-size:1em;">
+    <div style="background:#111;border-radius:8px;max-width:400px;padding:20px;margin:40px auto;">
+      <h3 style="color:#0f0">About ShadowTalk</h3>
+      <p>
+        ShadowTalk is an experimental, open-source secure messenger.<br>
+        <b>No messages or files are ever stored on the server after delivery.</b><br>
+        All messages are end-to-end encrypted and vanish after delivery or expiry.<br>
+        No user metadata is stored, all contacts are hashed, and logs are minimized.<br>
+        <b>We do not guarantee perfect security. Use at your own risk.</b><br>
+        Your encryption keys never leave your device unless you explicitly export them.
+      </p>
+      <p>Developed by the one and only living polymath, @polymathkaila</p>
+      <button id="about-close-btn" style="margin-top:10px;">Close</button>
+    </div>
+  </div>
+
+  <script src="libs/qrcode.min.js"></script>
+  <script src="libs/tweetnacl.min.js"></script>
+  <script src="libs/nacl-util.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
